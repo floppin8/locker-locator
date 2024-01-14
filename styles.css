@@ -1,1 +1,54 @@
 
+h1 {
+    color: black;
+    font-family: verdana;
+    font-size: 100%;
+    text-align: left;
+
+    margin: 75px;
+}
+
+/* sign in button */
+.sign-in {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 20px;
+  font-size: 16px;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.sign-in:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* locker combination and number button */
+.locker-info{
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 20px;
+  font-size: 16px;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+
+/*increase the size of the button when hovered over */
+button:hover {
+  transform: scale(1.1);
+  /*animation: grow 0.4s ease-in-out;*/
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
