@@ -14,8 +14,15 @@
     <main>
         <h1>Locker Locator</h1>  
 
-        <button class="sign-in" onclick="login()">Sign in</button>
+        <button class="sign-in" onclick="login()">
+          Sign in
+        </button>
+        <button class="google-sign-in" disabled onclick="loginGoogle()">
+          Login with google
+        </button>
         <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
+        <!-- for when a person decides to add infomration to their locker -->
+        <button class="add-info" onclick="addInfo()">Save Changes</button>
         
     </main>
 	<script src="index.js"></script>
