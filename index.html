@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS">
     <meta name = "description" content = "Locker locator for MVHS">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MVHS Locker Locator</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body>
+</head>
+<body>
     <main>
         <h1>Locker Locator</h1>  
-
+        
         <button class="sign-in" onclick="login()">
-          Sign in
+            Sign in
         </button>
         <button class="google-sign-in" disabled onclick="loginGoogle()">
-          Login with google
+            Login with google
         </button>
         <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
         <!-- for when a person decides to add infomration to their locker -->
         <button class="add-info" onclick="addInfo()">Save Changes</button>
+        <!-- Create a div for the Google Sign-In button -->
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        
+        <!-- Display user information after signing in -->
+        <div id="userInfo" style="display: none;">
+            <p>Welcome, <span id="userName"></span>!</p>
+            <p>Email: <span id="userEmail"></span></p>
+            <img id="userImage" src="" alt="User Profile Picture">
+        </div>
+        
         
     </main>
-	<script src="index.js"></script>
-  </body>
+    <script src="index.js"></script>
+</body>
 </html>
