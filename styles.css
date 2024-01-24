@@ -1,63 +1,82 @@
-h1 {
-    color: black;
-    font-family: verdana;
-    font-size: 100%;
-    text-align: left;
+body {
+  font-family: Arial, sans-serif;
+}
 
-    margin: 75px;
+main {
+  text-align: center;
+  margin: 20px;
+}
+
+#g-signin2 {
+  display: inline-block;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+}
+
+#user-info, #sign-in-button {
+  display: none;
+}
+h1 {
+  text-align: center;
+  background-color: #fff710e3;
+  color: rgb(0, 0, 0);
+  padding: 10px;
 }
 
 /* sign in button */
 .sign-in {
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 5px 20px;
-  font-size: 16px;
-  position: relative;
-  transition: transform 0.3s;
+background-color: #000000;
+color: white;
+border: none;
+border-radius: 10px;
+padding: 5px 20px;
+font-size: 16px;
+position: relative;
+transition: transform 0.3s;
 }
 
 .google-sign-in {
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 5px 20px;
-  font-size: 16px;
-  position: relative;
-  transition: transform 0.3s;
+background-color: #000000;
+color: white;
+border: none;
+border-radius: 10px;
+padding: 5px 20px;
+font-size: 16px;
+position: relative;
+transition: transform 0.3s;
 }
 
 /* locker combination and number button */
 .locker-info{
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 5px 20px;
-  font-size: 16px;
-  position: relative;
-  transition: transform 0.3s;
+background-color: #000000;
+color: white;
+border: none;
+border-radius: 10px;
+padding: 5px 20px;
+font-size: 16px;
+position: relative;
+transition: transform 0.3s;
 }
 
 
 /*increase the size of the button when hovered over */
 button:hover {
-  transform: scale(1.1);
-  /*animation: grow 0.4s ease-in-out;*/
+transform: scale(1.1);
+/*animation: grow 0.4s ease-in-out;*/
 }
 .button:hover::after {
-  visibility: visible;
-  opacity: 1;
+visibility: visible;
+opacity: 1;
 }
 
 @keyframes grow {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+0% {
+  transform: scale(1);
+}
+50% {
+  transform: scale(1.1);
+}
 }
