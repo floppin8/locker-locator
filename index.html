@@ -31,14 +31,8 @@
         <!-- Have a text input to type in locker number -->
         <input type="text" id="lockerNumber" placeholder="Locker Number">
 
-        <!-- Display the map image below the text input-->
-        <img id="map" src="./images/map.jpg" alt="Map of MVHS">
-
-        <!-- Resize image so its height doesn't overflow over the window -->
-        <script>
-            var img = document.getElementById('map');
-            img.style.height = window.innerHeight * 0.7 + 'px';
-        </script>
+        <!-- Display the map image below the text input without distortion -->
+        <img src="./images/map.jpg" alt="Map of MVHS" class="scaled-center-image">
 
         <!-- Display locker information after signing in -->
         <div id="lockerInfo" style="display: none;">
