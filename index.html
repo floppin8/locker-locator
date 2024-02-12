@@ -15,10 +15,6 @@
 <body>
     <main>
         <h1>Locker Locator</h1>  
-        
-        <button class="sign-in" onclick="login()">
-            Sign in
-        </button>
         <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
         <!-- for when a person decides to add infomration to their locker -->
         <button class="add-info" onclick="addInfo()">Save Changes</button>
@@ -32,10 +28,10 @@
             <img id="userImage" src="" alt="User Profile Picture">
         </div>
 
-        <!-- Have a textfield to type in locker number -->
+        <!-- Have a text input to type in locker number -->
         <input type="text" id="lockerNumber" placeholder="Locker Number">
 
-        <!-- Display the map image -->
+        <!-- Display the map image below the text input-->
         <img id="map" src="./images/map.jpg" alt="Map of MVHS">
 
         <!-- Resize image so its height doesn't overflow over the window -->
