@@ -38,6 +38,12 @@
         <!-- Display the map image -->
         <img id="map" src="./images/map.jpg" alt="Map of MVHS">
 
+        <!-- Resize image so its height doesn't overflow over the window -->
+        <script>
+            var img = document.getElementById('map');
+            img.style.height = window.innerHeight * 0.7 + 'px';
+        </script>
+
         <!-- Display locker information after signing in -->
         <div id="lockerInfo" style="display: none;">
             <p>Locker Number: <span id="lockerNumber"></span></p>
