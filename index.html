@@ -19,9 +19,6 @@
         <button class="sign-in" onclick="login()">
             Sign in
         </button>
-        <button class="google-sign-in" disabled onclick="loginGoogle()">
-            Login with google
-        </button>
         <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
         <!-- for when a person decides to add infomration to their locker -->
         <button class="add-info" onclick="addInfo()">Save Changes</button>
@@ -33,6 +30,16 @@
             <p>Welcome, <span id="userName"></span>!</p>
             <p>Email: <span id="userEmail"></span></p>
             <img id="userImage" src="" alt="User Profile Picture">
+        </div>
+
+        <!-- Have a textfield to type in locker number with placeholder text "Locker Number" -->
+        <input type="text" id="lockerNumber" placeholder="Locker Number">
+
+        <!-- Display locker information after clicking the locker information button -->
+        <div id="lockerInfo" style="display: none;">
+            <p>Locker Number: <span id="lockerNumber"></span></p>
+            <p>Locker Combination: <span id="lockerCombination"></span></p>
+            <p>Locker Location: <span id="lockerLocation"></span></p>
         </div>
         
         
