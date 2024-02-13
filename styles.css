@@ -19,6 +19,26 @@ header {
   height: 100vh;
 }
 
+h1 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: normal;
+  font-family: 'Rubik', sans-serif;
+  background-color: #FFC600;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  margin: 0;
+}
+
+input[type=text] {
+  width: 10%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #FFC600;
+}
+
 #g-signin2 {
   display: inline-block;
 }
@@ -32,21 +52,15 @@ header {
   display: none;
 }
 
-h1 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: normal;
-  font-family: 'Rubik', sans-serif;
-  background-color: #FFC600;
-  color: rgb(0, 0, 0);
-  padding: 10px;
-  margin: 0;
-}
-
+/* image container */
 .imgbox {
   display: grid;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+/* image */
 .center-fit {
   max-width: 100%;
   max-height: 100vh;
@@ -65,6 +79,7 @@ position: relative;
 transition: transform 0.3s;
 }
 
+/* google sign in button */
 .google-sign-in {
 background-color: #000000;
 color: white;
