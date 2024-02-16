@@ -3,45 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="HTML, CSS">
-    <meta name = "description" content = "Locker locator for MVHS">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MVHS Locker Locator</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <main>
-        <!-- Title of the page -->
+    <header>
         <h1>MVHS Locker Locator</h1>
-
-        <!-- For when a person wants to see their locker information -->
-        <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
-
-        <!-- For when a person decides to add information to their locker -->
-        <button class="add-info" onclick="addInfo()">Save Changes</button>
-
-        <!-- Create a div for the Google Sign-In button -->
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-        <!-- Have a text input to type in locker number -->
-        <input type="text" id="lockerNumber" placeholder="Locker Number">
-
-        <!-- Display the map image below the text input without distortion -->
-        <div class="imgbox">
-            <img src="./images/map.jpg" alt="Map of MVHS" class="center-fit">
+        <div class="signin-btn-container">
+            <button class="sign-in" onclick="signIn()">Sign In</button>
         </div>
-
-        <!-- Display locker information after signing in -->
-        <div id="lockerInfo" style="display: none;">
-            <p>Locker Number: <span id="lockerNumber"></span></p>
-            <p>Locker Combination: <span id="lockerCombination"></span></p>
-            <p>Locker Location: <span id="lockerLocation"></span></p>
+    </header>
+    <main>
+        <div class="content-container">
+            <div class="image-container">
+                <img src="./images/map.jpg" alt="Map of MVHS" class="scaled-center-image">
+                <div id="highlightArea" class="highlight-area"></div>
+            </div>
+            <div class="info-container">
+                <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
+                <button class="add-info" onclick="addInfo()">Save Changes</button>
+                <button class="find-locker" onclick="findLocker()">Find Locker</button>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <input type="text" id="lockerNumber" placeholder="Locker Number">
+            </div>
         </div>
-        
-        
     </main>
     <script src="index.js"></script>
 </body>
