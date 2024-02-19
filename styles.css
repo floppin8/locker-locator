@@ -7,16 +7,21 @@ body {
   height: 100vh;
   overflow: auto;
 }
-
-header {
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+}
+/* HEADER COLOR THING */
+header {
   background-color: #ffc107;
-  color: rgb(0, 0, 0);
-  padding: 10px 20px; 
-  box-sizing: border-box;
+  color: #000;
+  padding: 20px 20px;
+  text-align: center;
   width: 100%;
+  z-index: 2; /* Ensures header is above other content */
 }
 
 h1 {
@@ -24,37 +29,21 @@ h1 {
   font-size: 30px;
   font-weight: normal;
   font-family: 'Rubik', sans-serif;
-  margin: 0; 
-  flex-grow: 1; 
+  margin: 0;
+  flex-grow: 1;
 }
 
 .signin-btn-container {
-  text-align: right; 
-  padding-right: 20px; 
-  padding-top: 10px;
-}
-
-/* sign in button */
-.sign-in {
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.sign-in:hover {
-  background-color: #ffc107;
-  transform: scale(1.1);
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 20px;
 }
 
 main {
   text-align: center;
   margin: 0 auto;
-  padding: 20px;
-  padding-top: 60px; /* Adds space for the fixed header */
+  padding: 30px;
+  padding-top: 10px;
 }
 
 .content-container {
@@ -64,16 +53,36 @@ main {
   align-items: flex-start;
 }
 
-.image-container, .info-container {
+.image-container {
+  flex: 1.4;
+  min-width: 200;
+}
+.info-container{
   flex: 1;
-  min-width: 250px; /* Adjust if needed */
+  min-width: 200;
+}
+
+
+#zoomContainer {
+  overflow: hidden;
+  position: relative;
+  width: 100%; /* Ensures responsiveness */
+  height: auto; /* Adjust based on content */
+  max-width: 1500px; /* Limit the maximum size on larger screens */
+  margin: 20px auto; /* Center the container */
+  border: 1px solid #ccc;
 }
 
 .scaled-center-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+  transition: transform 0.2s ease-out; /* Faster transition with smooth ending */
+  width: 100%; /* Ensure the image scales with the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.highlight-area {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.5); /*change if wanted */
+  /* display: none; */
 }
 
 .info-container {
@@ -83,7 +92,7 @@ main {
   padding: 20px;
 }
 
-button {
+button, select, input[type="text"], input[list="categories"] {
   background-color: #000000;
   color: white;
   border: none;
@@ -91,25 +100,20 @@ button {
   padding: 10px 20px;
   margin: 5px;
   cursor: pointer;
+  font-family: 'Rubik', Arial, sans-serif; /* Ensure font consistency */
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+button:hover, select:hover, input[type="text"]:hover, input[list="categories"]:hover {
   background-color: #ffc107;
+  color: black;
   transform: scale(1.1);
 }
 
-input[type="text"] {
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
 
-.highlight-area {
-  position: absolute;
-  background-color: rgba(255, 0, 0, 0.5); /* Semi-transparent highlight color */
-  display: none; /* Hidden by default */
+
+input[type="text"], input[list="categories"] {
+  border: 1px solid #ccc; /* Ensures the input field is clearly visible */
 }
 
 @media (max-width: 768px) {
