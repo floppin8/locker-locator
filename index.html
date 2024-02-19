@@ -5,26 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MVHS Locker Locator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
     <header>
+        <!-- Centered header content -->
         <h1>MVHS Locker Locator</h1>
-        <div class="signin-btn-container">
-            <button class="sign-in" onclick="signIn()">Sign In</button>
-        </div>
     </header>
     <main>
         <div class="content-container">
-            <div class="image-container">
-                <img src="./images/map.jpg" alt="Map of MVHS" class="scaled-center-image">
-                <div id="highlightArea" class="highlight-area"></div>
+            <!-- Map container on the left -->
+            <div class="image-container" id="zoomContainer">
+                <img src="./images/map.jpg" alt="Map of MVHS" class="scaled-center-image" id="mapImage">
+                <!-- Highlighted areas -->
+                <div id="highlightedAreas"></div>
             </div>
+            <!-- Info container on the right -->
             <div class="info-container">
-                <button class="locker-info" onclick="lockerInfo()">Locker Information</button>
-                <button class="add-info" onclick="addInfo()">Save Changes</button>
-                <button class="find-locker" onclick="findLocker()">Find Locker</button>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                <input type="text" id="lockerNumber" placeholder="Locker Number">
+                <select id="categorySelect" onchange="handleCategoryChange()">
+                    <option value="">Select Category</option>
+                    <option value="Restrooms">Restrooms</option>
+                    <option value="Attendance Office">Attendance Office</option>
+                    <option value="Parking Lots">Parking Lots</option>
+                    <option value="Bike Racks">Bike Racks</option>
+                    <option value="Locker">Locker</option>
+                </select>
+                <input type="text" id="lockerNumberInput" placeholder="Locker Number" style="display: none;">
+                <button class="locker-info" id="personalInfoBtn" style="display: none;">Personal Information</button>
+                <button class="add-info" id="saveChangesBtn" style="display: none;">Save Changes</button>
+            </div>
+            <!-- Sign-in button aligned with the map and buttons for desktop views -->
+            <div class="signin-btn-container">
+                <button class="sign-in" id="signInBtn">Sign In</button>
             </div>
         </div>
     </main>
