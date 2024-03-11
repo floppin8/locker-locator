@@ -1,174 +1,169 @@
-// Wait for the Google API library to load before initializing sign-in
-function initGoogleSignIn() {
-  gapi.load("auth2", function () {
-    gapi.auth2.init({
-      client_id: "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    }).then(() => {
-      // Google Sign-in initialized, proceed with your sign-in logic
-    });
-  });
-}
-
-// Check if gapi is loaded before trying to initialize Google Sign-In
-if (typeof gapi !== 'undefined') {
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialization functions
   initGoogleSignIn();
-} else {
-  window.onload = function() {
-    initGoogleSignIn();
+  setupZoomAndHighlights();
+  
+  // Event listeners
+  document.getElementById('signInBtn').addEventListener('click', signIn);
+  document.getElementById('categorySelect').addEventListener('change', handleCategoryChange);
+  document.getElementById('personalInfoBtn').addEventListener('click', function() {
+    document.getElementById('saveChangesBtn').style.display = 'block';
+  });
+});
+
+function initGoogleSignIn() {
+  if (typeof gapi !== 'undefined') {
+    gapi.load("auth2", function () {
+      gapi.auth2.init({
+        client_id: "YOUR_CLIENT_ID.apps.googleusercontent.com",
+      }).then(() => {
+        // Sign-in logic here
+      });
+    });
+  } else {
+    window.onload = function() {
+      initGoogleSignIn();
+    }
   }
 }
 
 function signIn() {
   alert("Sign In clicked");
+  // more sign-in logic here
 }
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
-  document.getElementById("user-name").textContent = profile.getName();
-  document.getElementById("user-email").textContent = profile.getEmail();
-  document.getElementById("user-info").style.display = "block";
-  document.getElementById("sign-in-button").style.display = "none";
+  // Update UI based on sign-in
 }
 
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
-    document.getElementById("user-info").style.display = "none";
-    document.getElementById("sign-in-button").style.display = "block";
+    // Update UI based on sign-out
   });
 }
 
-// show more buttons when other stuff has happened (show information after sign in)
-document.addEventListener('DOMContentLoaded', function() {
-
-    document.getElementById('signInBtn').addEventListener('click', function() {
-        document.getElementById('googleSignIn').style.display = 'block'; // Show Google Sign-In
-    });
-
-    document.getElementById('categorySelect').addEventListener('change', handleCategoryChange);
-
-    document.getElementById('personalInfoBtn').addEventListener('click', function() {
-        document.getElementById('saveChangesBtn').style.display = 'block'; // Show Save Changes after Locker Info is clicked
-    });
-});
-//WHEN LOCKER CATEGORY IS CLICKED, ALLOW USER TO INPUT NUMBER
 function handleCategoryChange() {
-    const category = document.getElementById('categorySelect').value;
-    if (category === 'Locker') {
-        document.getElementById('lockerNumberInput').style.display = 'block'; // Show locker number input
-    } else {
-        document.getElementById('lockerNumberInput').style.display = 'none'; // Hide locker number input
-    }
-    // Implement highlightCategory logic here for other categories
-}
-const categoryPositions = {
-  Restrooms: [
-    { top: "50px", left: "150px", width: "100px", height: "100px" },
-    { top: "300px", left: "250px", width: "100px", height: "100px" }
-  ],
-  'Attendance Office': [
-    { top: "200px", left: "350px", width: "120px", height: "120px" }
-  ],
-  'Parking Lots': [
-    // Add positions for parking lots
-  ],
-  'Bike Racks': [
-    // Add positions for bike racks
-  ],
-  Locker: [
-    // Add positions for lockers
-  ]
-};
-
-function handleCategoryChange() {
-    const category = document.getElementById('categorySelect').value;
-    if (category === 'Locker') {
-        document.getElementById('lockerNumberInput').style.display = 'block'; // Show locker number input
-    } else {
-        document.getElementById('lockerNumberInput').style.display = 'none'; // Hide locker number input
-    }
-    highlightCategory(category);
+  const category = document.getElementById('categorySelect').value;
+  const lockerInput = document.getElementById('lockerNumberInput');
+  lockerInput.style.display = category === 'Locker' ? 'block' : 'none';
+  highlightCategory(category);
 }
 
 function highlightCategory(category) {
   const highlightedAreas = document.getElementById("highlightedAreas");
-  highlightedAreas.innerHTML = ""; // Clear existing highlighted areas
-
+  highlightedAreas.innerHTML = ""; // Clear previous highlights
+  
   if (categoryPositions[category]) {
     categoryPositions[category].forEach(pos => {
       const highlightArea = document.createElement("div");
       highlightArea.classList.add("highlight-area");
-      Object.assign(highlightArea.style, {
-        position: "absolute",
-        backgroundColor: "rgba(255, 0, 0, 0.5)",
-        top: pos.top,
-        left: pos.left,
-        width: pos.width,
-        height: pos.height
-      });
+      highlightArea.style.position = "absolute";
+      highlightArea.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+      highlightArea.dataset.originalTop = pos.top;
+      highlightArea.dataset.originalLeft = pos.left;
+      highlightArea.dataset.originalWidth = pos.width;
+      highlightArea.dataset.originalHeight = pos.height;
       highlightedAreas.appendChild(highlightArea);
+      // Initial placement without zoom
+      placeHighlight(highlightArea, 1);
     });
   }
 }
 
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
+function setupZoomAndHighlights() {
   const container = document.getElementById('zoomContainer');
   const img = document.getElementById('mapImage');
   let scale = 1;
-  const zoomSpeed = 0.25; // Increased zoom speed 
-
-  // Function to calculate the distance between two touch points
-  function getDistance(touches) {
-      const dx = touches[0].pageX - touches[1].pageX;
-      const dy = touches[0].pageY - touches[1].pageY;
-      return Math.sqrt(dx * dx + dy * dy);
-  }
-
-  // Function to update zoom scale and origin
-  function updateZoom(newScale, originX, originY) {
-      scale = Math.max(newScale, 1); // Don't zoom out beyond original size
-      img.style.transformOrigin = `${(originX / container.offsetWidth) * 100}% ${(originY / container.offsetHeight) * 100}%`;
-      img.style.transform = `scale(${scale})`;
-  }
-
-  // Mouse wheel zoom
+  
   container.addEventListener('wheel', function(e) {
-      e.preventDefault();
-      const mouseX = e.clientX - container.getBoundingClientRect().left;
-      const mouseY = e.clientY - container.getBoundingClientRect().top;
-      const delta = e.deltaY > 0 ? -0.1 : 0.1; // Adjust zoom speed as needed
-      const newScale = scale + delta;
-      updateZoom(newScale, mouseX, mouseY);
+    e.preventDefault();
+    const rect = container.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left; // Mouse X relative to the container
+    const offsetY = e.clientY - rect.top; // Mouse Y relative to the container
+    
+    const delta = e.deltaY * -0.02; // Adjust zoom speed
+    const newScale = Math.max(scale + delta, 1); // Prevent zooming out beyond original size
+    
+    adjustZoom(newScale, offsetX, offsetY);
   });
-
-  // Touch pinch zoom
-  let startDist = 0, startX = 0, startY = 0;
+  
   container.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 2) {
-          startDist = getDistance(e.touches);
-          const rect = container.getBoundingClientRect();
-          startX = (e.touches[0].pageX + e.touches[1].pageX) / 2 - rect.left;
-          startY = (e.touches[0].pageY + e.touches[1].pageY) / 2 - rect.top;
-      }
+    if (e.touches.length === 2) {
+      touchCenter = getCenterPoint(e.touches, container);
+    }
   });
-
+  
   container.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 2) {
-          const currentDist = getDistance(e.touches);
-          if (startDist !== 0) {
-              const ratio = currentDist / startDist;
-              const newScale = scale * ratio;
-              updateZoom(newScale, startX, startY);
-          }
+    if (e.touches.length === 2) {
+      const newCenter = getCenterPoint(e.touches, container);
+      const currentDistance = getDistanceBetweenTouches(e.touches);
+      if (lastTouchDistance !== 0) {
+        const deltaScale = currentDistance / lastTouchDistance;
+        const newScale = Math.max(scale * deltaScale, 1); // Prevent zooming out beyond original size
+        adjustZoom(newScale, newCenter.x, newCenter.y);
+        lastTouchDistance = currentDistance;
       }
+      e.preventDefault();
+    }
   });
+  
+  container.addEventListener('touchend', function(e) {
+    lastTouchDistance = 0; // Reset after pinch-to-zoom gesture ends
+  });
+  
+  function adjustZoom(newScale, originX, originY) {
+    scale = newScale;
+    // Convert origin points to percentages
+    const originXPercent = (originX / container.offsetWidth) * 100;
+    const originYPercent = (originY / container.offsetHeight) * 100;
+    img.style.transformOrigin = `${originXPercent}% ${originYPercent}%`;
+    img.style.transform = `scale(${scale})`;
+    document.querySelectorAll('.highlight-area').forEach(highlight => {
+      placeHighlight(highlight, scale);
+    });
+  }
+  
+  
+  function getDistanceBetweenTouches(touches) {
+    const dx = touches[0].pageX - touches[1].pageX;
+    const dy = touches[0].pageY - touches[1].pageY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+  
+  function getCenterPoint(touches) {
+    return {
+      x: (touches[0].pageX + touches[1].pageX) / 2,
+      y: (touches[0].pageY + touches[1].pageY) / 2,
+    };
+  }
+}
+function getCenterPoint(touches, container) {
+  const rect = container.getBoundingClientRect();
+  const x = (touches[0].pageX + touches[1].pageX) / 2 - rect.left;
+  const y = (touches[0].pageY + touches[1].pageY) / 2 - rect.top;
+  return { x, y };
+}
 
-  container.addEventListener('touchend', function() {
-      if (e.touches.length < 2) {
-          startDist = 0; // Reset pinch zoom
-      }
-  });
-});
+function placeHighlight(highlight, scale) {
+  const originalTop = parseInt(highlight.dataset.originalTop, 10);
+  const originalLeft = parseInt(highlight.dataset.originalLeft, 10);
+  const originalWidth = parseInt(highlight.dataset.originalWidth, 10);
+  const originalHeight = parseInt(highlight.dataset.originalHeight, 10);
+  
+  highlight.style.top = `${originalTop * scale}px`;
+  highlight.style.right = `${originalLeft * scale}px`;
+  highlight.style.width = `${originalWidth * scale}px`;
+  highlight.style.height = `${originalHeight * scale}px`;
+}
+const categoryPositions = {
+  Restrooms: [
+    { top: 50, left: 150, width: 100, height: 100 },
+    { top: 300, left: 250, width: 100, height: 100 }
+  ],
+  'Attendance Office': [
+    { top: 200, left: 350, width: 120, height: 120 }
+  ],
+  // Define other categories as needed
+};
