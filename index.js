@@ -1,48 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Initialization functions
-  initGoogleSignIn();
   setupZoomAndHighlights();
   
   // Event listeners
-  document.getElementById('signInBtn').addEventListener('click', signIn);
   document.getElementById('categorySelect').addEventListener('change', handleCategoryChange);
   document.getElementById('personalInfoBtn').addEventListener('click', function() {
     document.getElementById('saveChangesBtn').style.display = 'block';
   });
 });
-
-function initGoogleSignIn() {
-  if (typeof gapi !== 'undefined') {
-    gapi.load("auth2", function () {
-      gapi.auth2.init({
-        client_id: "YOUR_CLIENT_ID.apps.googleusercontent.com",
-      }).then(() => {
-        // Sign-in logic here
-      });
-    });
-  } else {
-    window.onload = function() {
-      initGoogleSignIn();
-    }
-  }
-}
-
-function signIn() {
-  alert("Sign In clicked");
-  // more sign-in logic here
-}
-
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  // Update UI based on sign-in
-}
-
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    // Update UI based on sign-out
-  });
-}
 
 function handleCategoryChange() {
   const category = document.getElementById('categorySelect').value;
