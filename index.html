@@ -9,7 +9,6 @@
 </head>
 <body>
     <header>
-        <!-- Centered header content -->
         <h1>MVHS Locker Locator</h1>
     </header>
     <main>
@@ -17,22 +16,37 @@
             <!-- Map container on the left -->
             <div class="image-container" id="zoomContainer">
                 <img src="./images/campus_map.png" alt="Map of MVHS" class="scaled-center-image" id="mapImage">
-                <!-- Highlighted areas -->
                 <div id="highlightedAreas"></div>
             </div>
-            <!-- Info container on the right -->
-            <div class="info-container">
-                <select id="categorySelect" onchange="handleCategoryChange()">
-                    <option value="">Select Category</option>
-                    <option value="Restrooms">Restrooms</option>
-                    <option value="Attendance Office">Attendance Office</option>
-                    <option value="Parking Lots">Parking Lots</option>
-                    <option value="Bike Racks">Bike Racks</option>
-                    <option value="Locker">Locker</option>
-                </select>
-                <input type="text" id="lockerNumberInput" placeholder="Locker Number" style="display: none;">
-                <button class="locker-info" id="personalInfoBtn" style="display: none;">Personal Information</button>
-                <button class="add-info" id="saveChangesBtn" style="display: none;">Save Changes</button>
+            <!-- Info and schedule container on the right -->
+            <div class="info-and-schedule-container">
+                <div class="info-container">
+                    <select id="categorySelect" onchange="handleCategoryChange()">
+                        <option value="">Select Category</option>
+                        <option value="Restrooms">Restrooms</option>
+                        <option value="Attendance Office">Attendance Office</option>
+                        <option value="Parking Lots">Parking Lots</option>
+                        <option value="Bike Racks">Bike Racks</option>
+                    </select>
+                    <input type="text" id="lockerNumberInput" placeholder="Locker Number" style="display: none;">
+                    <button class="locker-info" id="personalInfoBtn" style="display: none;">Personal Information</button>
+                   
+                </div>
+                <div class="info-container">
+                    <h2>Your Locker Info</h2>
+                    <label for="lockerCombo">Locker Combination:</label>
+                    <input type="text" id="lockerCombo" placeholder="XXX-XXX-XXX">
+                    
+                    <label for="lockerNumber">Locker Number:</label>
+                    <input type="text" id="lockerNumber" placeholder="Enter Locker Number">
+                    
+    
+                </div>
+                <div class="map-points-container">
+                    <h2>Mark Points on Map</h2>
+                    <p>Click on the map to mark a point.</p>
+                    <button id="saveMapPointsBtn">Save Points</button>
+                </div>
             </div>
         </div>
     </main>
