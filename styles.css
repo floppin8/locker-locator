@@ -7,30 +7,21 @@ body {
   height: 100vh;
   overflow: auto;
 }
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* HEADER COLOR THING */
+
 header {
   background-color: #ffc107;
   color: #000;
   padding: 20px 20px;
   text-align: center;
   width: 100%;
-  z-index: 2; /* Ensures header is above other content */
+  z-index: 2;
 }
 
 h1 {
-  text-align: center;
   font-size: 30px;
   font-weight: normal;
   font-family: 'Rubik', sans-serif;
   margin: 0;
-  flex-grow: 1;
 }
 
 main {
@@ -49,40 +40,38 @@ main {
 
 .image-container {
   flex: 1.6;
-  min-width: 250;
-}
-.info-container{
-  flex: 1;
-  min-width: 150;
+  min-width: 250px;
 }
 
+.info-and-schedule-container {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+}
 
 #zoomContainer {
   overflow: hidden;
   position: relative;
-  width: 100%; /* Ensures responsiveness */
-  height: auto; /* Adjust based on content */
-  max-width: 1500px; /* Limit the maximum size on larger screens */
-  margin: 20px auto; /* Center the container */
+  width: 100%;
+  height: auto;
+  max-width: 1500px;
+  margin: 20px auto;
   border: 1px solid #ccc;
 }
 
 .scaled-center-image {
-  transition: transform 0.2s ease-out; /* Faster transition with smooth ending */
-  width: 100%; /* Ensure the image scales with the container */
-  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.2s ease-out;
+  width: 100%;
+  height: auto;
 }
 
 .highlight-area {
   position: absolute;
-  background-color: rgba(255, 0, 0, 0.5); /*change if wanted */
-  /* display: none; */
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
-.info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.info-container, .schedule-container, .map-points-container {
   padding: 20px;
 }
 
@@ -94,7 +83,7 @@ button, select, input[type="text"], input[list="categories"] {
   padding: 10px 20px;
   margin: 5px;
   cursor: pointer;
-  font-family: 'Rubik', Arial, sans-serif; /* Ensure font consistency */
+  font-family: 'Rubik', Arial, sans-serif;
   transition: background-color 0.3s ease;
 }
 
@@ -104,10 +93,8 @@ button:hover, select:hover, input[type="text"]:hover, input[list="categories"]:h
   transform: scale(1.1);
 }
 
-
-
 input[type="text"], input[list="categories"] {
-  border: 1px solid #ccc; /* Ensures the input field is clearly visible */
+  border: 1px solid #ccc;
 }
 
 @media (max-width: 768px) {
@@ -115,7 +102,7 @@ input[type="text"], input[list="categories"] {
     flex-direction: column;
   }
   
-  .image-container, .info-container {
+  .image-container, .info-and-schedule-container {
     flex-basis: 100%;
   }
 }
