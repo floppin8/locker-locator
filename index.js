@@ -8,9 +8,10 @@ class LockerLocator {
     this.zoomContainer = document.getElementById('zoomContainer');
     this.mapImage = document.getElementById('mapImage');
     this.categorySelect = document.getElementById('categorySelect');
-    this.lockerNumberInput = document.getElementById('lockerNumberInput');
+    this.lockerNumber = document.getElementById('lockerNumber');
     this.lockerCombo = document.getElementById('lockerCombo');
     this.highlightedAreas = document.getElementById("highlightedAreas");
+    this.highlightLockerToggle = document.getElementById("highlightLockerToggle");
     this.scale = 1;
     this.lastTouchDistance = 0;
     this.categoryPositions = {
@@ -31,14 +32,35 @@ class LockerLocator {
     this.zoomContainer.addEventListener('touchmove', this.handleTouchMove.bind(this), {passive: false});
     this.zoomContainer.addEventListener('touchend', this.resetTouch.bind(this));
     this.categorySelect.addEventListener('change', this.handleCategoryChange.bind(this));
-    this.lockerNumberInput.addEventListener('input', this.saveLockerInfo.bind(this));
+    this.lockerNumber.addEventListener('input', this.saveLockerInfo.bind(this));
     this.lockerCombo.addEventListener('input', this.saveLockerInfo.bind(this));
+    this.highlightLockerToggle.addEventListener('click', this.highlightLocker.bind(this));
   }
 
   handleCategoryChange() {
-    const category = this.categorySelect.value;
-    this.lockerNumberInput.style.display = category === 'Locker' ? 'block' : 'none';
-    this.highlightCategory(category);
+    const selectedCategory = this.categorySelect.value;
+    this.highlightCategory(selectedCategory);
+  }
+
+  highlightLocker() {
+    const lockerNumber = this.lockerNumber.value;
+    const highlightLockerToggle = this.highlightLockerToggle;
+    if (lockerNumber && highlightLockerToggle.checked) {
+      if ((lockerNumber >= 1 && lockerNumber <= 240) || (lockerNumber >= 956 && lockerNumber <= 1126)) {
+        this.createHighlightArea({ top: 280, left: 247, width: 10, height: 85 });
+      }
+      if ((lockerNumber >= 241 && lockerNumber <= 334) || (lockerNumber >= 874 && lockerNumber <= 955)) {
+        this.createHighlightArea({ top: 258, left: 202, width: 10, height: 50 });
+      }
+      if (lockerNumber >= 335 && lockerNumber <= 705) {
+        this.createHighlightArea({ top: 280, left: 300, width: 10, height: 85 });
+      }
+      if (lockerNumber >= 706 && lockerNumber <= 789) {
+        this.createHighlightArea({ top: 250, left: 318, width: 28, height: 10 });
+      }
+    } else {
+      this.highlightedAreas.innerHTML = ""; // Clear previous highlights
+    }
   }
 
   highlightCategory(category) {
@@ -118,14 +140,14 @@ class LockerLocator {
   }
 
   saveLockerInfo() {
-    console.log("Saving Locker Info", this.lockerNumberInput.value, this.lockerCombo.value); // Debug log
-    localStorage.setItem('lockerNumber', this.lockerNumberInput.value);
+    console.log("Saving Locker Info", this.lockerNumber.value, this.lockerCombo.value); // Debug log
+    localStorage.setItem('lockerNumber', this.lockerNumber.value);
     localStorage.setItem('lockerCombo', this.lockerCombo.value);
   }
   
 
   loadLockerInfo() {
-    this.lockerNumberInput.value = localStorage.getItem('lockerNumber') || '';
+    this.lockerNumber.value = localStorage.getItem('lockerNumber') || '';
     this.lockerCombo.value = localStorage.getItem('lockerCombo') || '';
   }
 }

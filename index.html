@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MVHS Locker Locator</title>
+    <title>MVHS Directory</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="index.js"></script>
 </head>
 <body>
     <header>
-        <h1>MVHS Locker Locator</h1>
+        <h1>MVHS Directory</h1>
     </header>
     <main>
         <div class="content-container">
@@ -28,18 +31,18 @@
                         <option value="Parking Lots">Parking Lots</option>
                         <option value="Bike Racks">Bike Racks</option>
                     </select>
-                    <input type="text" id="lockerNumberInput" placeholder="Locker Number" style="display: none;">
                     <button class="locker-info" id="personalInfoBtn" style="display: none;">Personal Information</button>
                    
                 </div>
                 <div class="info-container">
                     <h2>Your Locker Info</h2>
                     <label for="lockerCombo">Locker Combination:</label>
-                    <input type="text" id="lockerCombo" placeholder="XXX-XXX-XXX">
+                    <input type="text" id="lockerCombo" placeholder="XX-XX-XX">
+                    <input type="checkbox" id="showComboToggle" onclick="showCombo()">Show Combo
                     
                     <label for="lockerNumber">Locker Number:</label>
                     <input type="text" id="lockerNumber" placeholder="Enter Locker Number">
-                    
+                    <input type="checkbox" id="highlightLockerToggle" onclick="highlightLocker()">Show
     
                 </div>
                 <div class="map-points-container">
@@ -50,6 +53,5 @@
             </div>
         </div>
     </main>
-    <script src="index.js"></script>
 </body>
 </html>
