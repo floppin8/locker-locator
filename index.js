@@ -15,7 +15,9 @@ class LockerLocator {
     this.scale = 1;
     this.lastTouchDistance = 0;
     this.categoryPositions = {
-      Restrooms: [{ top: 185, left: 290, width: 8, height: 20 }, { top: 191, left: 395, width: 10, height: 15 }],
+      Restrooms: [{ top: 185, left: 290, width: 8, height: 21 }, { top: 191, left: 395, width: 10, height: 15 }, 
+                  { top: 309, left: 96, width: 18, height: 10 }, { top: 345, left: 130, width: 18, height: 10 },
+                  { top: 404, left: 164, width: 29, height: 9 }], 
       'Attendance Office': [{ top: 450, left: 170, width: 60, height: 60 }],
       // Add other categories as needed
     };
@@ -88,6 +90,7 @@ class LockerLocator {
   }
 
   handleZoom(event) {
+    /*
     event.preventDefault();
     const rect = this.zoomContainer.getBoundingClientRect();
     const offsetX = event.clientX - rect.left; // Mouse X relative to the container
@@ -97,6 +100,7 @@ class LockerLocator {
     const newScale = Math.max(this.scale + delta, 1); // Prevent zooming out beyond original size
 
     this.adjustZoom(newScale, offsetX, offsetY);
+    */
   }
 
   handleTouchStart(event) {
