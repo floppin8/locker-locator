@@ -15,8 +15,8 @@ class LockerLocator {
     this.scale = 1;
     this.lastTouchDistance = 0;
     this.categoryPositions = {
-      Restrooms: [{ top: 50, left: 150, width: 100, height: 100 }, { top: 300, left: 250, width: 100, height: 100 }],
-      'Attendance Office': [{ top: 200, left: 350, width: 120, height: 120 }],
+      Restrooms: [{ top: 185, left: 290, width: 8, height: 20 }, { top: 191, left: 395, width: 10, height: 15 }],
+      'Attendance Office': [{ top: 450, left: 170, width: 60, height: 60 }],
       // Add other categories as needed
     };
   }
@@ -57,6 +57,9 @@ class LockerLocator {
       }
       if (lockerNumber >= 706 && lockerNumber <= 789) {
         this.createHighlightArea({ top: 250, left: 318, width: 28, height: 10 });
+      }
+      if (lockerNumber >= 790 && lockerNumber <= 873) {
+        this.createHighlightArea({ top: 250, left: 211, width: 28, height: 10 });
       }
     } else {
       this.highlightedAreas.innerHTML = ""; // Clear previous highlights
