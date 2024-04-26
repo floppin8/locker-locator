@@ -20,6 +20,7 @@ class LockerLocator {
                   { top: 404, left: 164, width: 29, height: 9 }, { top: 389, left: 530, width: 17, height: 10 },
                   { top: 517, left: 508, width: 22, height: 8 },], 
       'Attendance Office': [{ top: 440, left: 165, width: 25, height: 23 }],
+      'Parking Lots': [{ top: 140, left: 90, width: 100, height: 80 }],
       // Add other categories as needed
     };
   }
