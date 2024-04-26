@@ -17,8 +17,9 @@ class LockerLocator {
     this.categoryPositions = {
       Restrooms: [{ top: 185, left: 290, width: 8, height: 21 }, { top: 191, left: 395, width: 10, height: 15 }, 
                   { top: 309, left: 96, width: 18, height: 10 }, { top: 345, left: 130, width: 18, height: 10 },
-                  { top: 404, left: 164, width: 29, height: 9 }], 
-      'Attendance Office': [{ top: 450, left: 170, width: 60, height: 60 }],
+                  { top: 404, left: 164, width: 29, height: 9 }, { top: 389, left: 530, width: 17, height: 10 },
+                  { top: 517, left: 508, width: 22, height: 8 },], 
+      'Attendance Office': [{ top: 440, left: 165, width: 25, height: 23 }],
       // Add other categories as needed
     };
   }
