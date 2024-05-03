@@ -66,9 +66,15 @@ main {
   height: auto;
 }
 
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
 .highlight-area {
   position: absolute;
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(255, 0, 0, 0.75);
+  animation: flash 0.75s infinite;
 }
 
 .info-container, .schedule-container, .map-points-container {
