@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const lockerLocator = new LockerLocator();
-  lockerLocator.init();
+  const directory = new MVHSDirectory();
+  directory.init();
 });
 
 class LockerLocator {
@@ -8,21 +8,12 @@ class LockerLocator {
     this.zoomContainer = document.getElementById('zoomContainer');
     this.mapImage = document.getElementById('mapImage');
     this.categorySelect = document.getElementById('categorySelect');
+    this.classroomNumber = document.getElementById('classroomNumber');
     this.lockerNumber = document.getElementById('lockerNumber');
-    this.lockerCombo = document.getElementById('lockerCombo');
     this.highlightedAreas = document.getElementById("highlightedAreas");
     this.highlightLockerToggle = document.getElementById("highlightLockerToggle");
     this.scale = 1;
     this.lastTouchDistance = 0;
-    this.categoryPositions = {
-      'Restrooms': [{ top: 185, left: 290, width: 8, height: 21 }, { top: 191, left: 395, width: 10, height: 15 }, 
-        { top: 309, left: 96, width: 18, height: 10 }, { top: 345, left: 130, width: 18, height: 10 },
-        { top: 404, left: 164, width: 29, height: 9 }, { top: 389, left: 530, width: 17, height: 10 },
-        { top: 517, left: 508, width: 22, height: 8 },], 
-      'Attendance Office': [{ top: 440, left: 165, width: 25, height: 23 }],
-      'Parking Lots': [{ top: 140, left: 90, width: 100, height: 80 }, { top: 485, left: 60, width: 175, height: 55 },],
-        // Add other categories as needed
-      };
       
       //map point stuff
       this.zoomContainer = document.getElementById('zoomContainer');
@@ -43,7 +34,9 @@ class LockerLocator {
       this.zoomContainer.addEventListener('touchmove', this.handleTouchMove.bind(this), {passive: false});
       this.zoomContainer.addEventListener('touchend', this.resetTouch.bind(this));
       this.categorySelect.addEventListener('change', this.handleCategoryChange.bind(this));
-      this.lockerNumber.addEventListener('input', this.saveLockerInfo.bind(this));
+      this.classroomNumber.addEventListener('input', this.updateClassroomHighlight.bind(this));
+      this.lockerNumber.addEventListener('input', this.updateLockerHighlight.bind(this));
+  
       this.lockerCombo.addEventListener('input', this.saveLockerInfo.bind(this));
       this.highlightLockerToggle.addEventListener('click', this.highlightLocker.bind(this));
       
@@ -99,57 +92,6 @@ class LockerLocator {
       this.displayPoints();
       localStorage.removeItem('mapPoints');
     }
-  
-  
-  handleCategoryChange() {
-    const selectedCategory = this.categorySelect.value;
-    this.highlightCategory(selectedCategory);
-  }
-  
-  highlightLocker() {
-    const lockerNumber = this.lockerNumber.value;
-    const highlightLockerToggle = this.highlightLockerToggle;
-    if (lockerNumber && highlightLockerToggle.checked) {
-      if ((lockerNumber >= 1 && lockerNumber <= 240) || (lockerNumber >= 956 && lockerNumber <= 1126)) {
-        this.createHighlightArea({ top: 280, left: 247, width: 10, height: 85 });
-      }
-      if ((lockerNumber >= 241 && lockerNumber <= 334) || (lockerNumber >= 874 && lockerNumber <= 955)) {
-        this.createHighlightArea({ top: 258, left: 202, width: 10, height: 50 });
-      }
-      if (lockerNumber >= 335 && lockerNumber <= 705) {
-        this.createHighlightArea({ top: 280, left: 300, width: 10, height: 85 });
-      }
-      if (lockerNumber >= 706 && lockerNumber <= 789) {
-        this.createHighlightArea({ top: 250, left: 318, width: 28, height: 10 });
-      }
-      if (lockerNumber >= 790 && lockerNumber <= 873) {
-        this.createHighlightArea({ top: 250, left: 211, width: 28, height: 10 });
-      }
-    } else {
-      this.highlightedAreas.innerHTML = ""; // Clear previous highlights
-    }
-  }
-  
-  highlightCategory(category) {
-    this.highlightedAreas.innerHTML = ""; // Clear previous highlights
-    if (this.categoryPositions[category]) {
-      this.categoryPositions[category].forEach(pos => this.createHighlightArea(pos));
-    }
-  }
-  
-  createHighlightArea(pos) {
-    const highlightArea = document.createElement("div");
-    highlightArea.classList.add("highlight-area");
-    highlightArea.style.position = "absolute";
-    highlightArea.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
-    Object.assign(highlightArea.style, {
-      top: `${pos.top}px`, 
-      left: `${pos.left}px`, 
-      width: `${pos.width}px`, 
-      height: `${pos.height}px`
-    });
-    this.highlightedAreas.appendChild(highlightArea);
-  }
   
   handleZoom(event) {
     /*
@@ -220,3 +162,12 @@ class LockerLocator {
     this.lockerCombo.value = localStorage.getItem('lockerCombo') || '';
   }
 }
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const directory = new MVHSDirectory();
+  directory.init();
+});
+
