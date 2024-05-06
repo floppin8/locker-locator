@@ -19,6 +19,7 @@ class MVHSDirectory {
             this.classroomNumber.addEventListener('input', () => this.updateHighlights('classroom'));
         }
         this.categorySelect.addEventListener('change', () => this.updateHighlights('category'));
+        window.addEventListener('resize', () => this.clearHighlights());
     }
     
     updateHighlights(type) {
@@ -70,12 +71,22 @@ class MVHSDirectory {
                 { top: 517, left: 508, width: 22, height: 8 },], 
                 'Attendance Office': [{ top: 440, left: 165, width: 25, height: 23 }],
                 'Parking Lots': [{ top: 140, left: 90, width: 100, height: 80 }, { top: 485, left: 60, width: 175, height: 55 },],
-                // Add other categories hhere
-            }[category];
-            if (positions) {
-                positions.forEach(pos => this.createHighlightArea(pos));
-            }
+                // Add other categories here
+        }[category];
+        if (positions) {
+            const imageWidth = this.zoomContainer.offsetWidth;
+            const imageHeight = this.zoomContainer.offsetHeight;
+            positions.forEach(pos => {
+                const scaledPos = {
+                    top: (pos.top / 590.766) * imageHeight,
+                    left: (pos.left / 848) * imageWidth,
+                    width: (pos.width / 848) * imageWidth,
+                    height: (pos.height / 590.766) * imageHeight
+                };
+                this.createHighlightArea(scaledPos);
+            });
         }
+    }
         
         
         createHighlightArea(pos) {
