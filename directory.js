@@ -37,7 +37,15 @@ class MVHSDirectory {
             return;
         }
         if (coordinates) {
-            this.createHighlightArea(coordinates);
+            const imageWidth = this.zoomContainer.offsetWidth;
+            const imageHeight = this.zoomContainer.offsetHeight;
+            const scaledCoordinates = {
+                top: (coordinates.top / 590.766) * imageHeight,
+                left: (coordinates.left / 848) * imageWidth,
+                width: (coordinates.width / 848) * imageWidth,
+                height: (coordinates.height / 590.766) * imageHeight
+            };
+            this.createHighlightArea(scaledCoordinates);
         }
     }
     
