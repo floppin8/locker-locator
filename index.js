@@ -12,6 +12,7 @@ class LockerLocator {
     this.lockerNumber = document.getElementById('lockerNumber');
     this.highlightedAreas = document.getElementById("highlightedAreas");
     this.highlightLockerToggle = document.getElementById("highlightLockerToggle");
+    this.highlightClassToggle = document.getElementById("highlightClassToggle");
     this.scale = 1;
     this.lastTouchDistance = 0;
       
@@ -39,6 +40,7 @@ class LockerLocator {
   
       this.lockerCombo.addEventListener('input', this.saveLockerInfo.bind(this));
       this.highlightLockerToggle.addEventListener('click', this.highlightLocker.bind(this));
+      this.highlightClassToggle.addEventListener('click', this.highlightClass.bind(this));
       
       this.zoomContainer.addEventListener('click', this.handleMapClick.bind(this));
       document.getElementById('saveMapPointsBtn').addEventListener('click', this.savePoints.bind(this));

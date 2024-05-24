@@ -5,11 +5,15 @@ class MVHSDirectory {
         this.categorySelect = document.getElementById('categorySelect');
         this.lockerNumber = document.getElementById('lockerNumber');
         this.classroomNumber = document.getElementById('classroomNumber');
+        this.mapPointsList = document.getElementById('mapPointsList');
+        this.points = JSON.parse(localStorage.getItem('mapPoints')) || [];
     }
     
     init() {
         this.attachEventListeners();
+        this.displayPoints();
     }
+    
     
     attachEventListeners() {
         if (this.lockerNumber) {
@@ -20,7 +24,74 @@ class MVHSDirectory {
         }
         this.categorySelect.addEventListener('change', () => this.updateHighlights('category'));
         window.addEventListener('resize', () => this.clearHighlights());
+        
+        // Event listeners for map points
+        this.zoomContainer.addEventListener('click', (event) => this.handleMapClick(event));
+        document.getElementById('saveMapPointsBtn').addEventListener('click', () => this.savePoints());
+        document.getElementById('clearMapPointsBtn').addEventListener('click', () => this.clearPoints());
     }
+    handleMapClick(event) {
+        const rect = this.zoomContainer.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        this.addPoint(x, y);
+    }
+    
+    
+    isNear(point1, point2, threshold = 10) {
+        const dx = point1.x - point2.x;
+        const dy = point1.y - point2.y;
+        return Math.sqrt(dx * dx + dy * dy) < threshold;
+    }
+    
+    
+    deletePoint(point) {
+        this.points = this.points.filter(p => p !== point);
+        this.displayPoints(); // Refresh the display
+    }
+    
+    addPoint(x, y) {
+        const existingPoint = this.points.find(point => this.isNear(point, { x, y }));
+        if (existingPoint) {
+            this.deletePoint(existingPoint);
+        } else {
+            const point = { x, y };
+            this.points.push(point);
+            this.displayPoints();
+        }
+    }
+    
+    displayPoints() {
+        this.zoomContainer.querySelectorAll('.point').forEach(pointDiv => pointDiv.remove()); // Clear existing points
+        this.points.forEach(point => this.displayPoint(point));
+    }
+    
+    displayPoint(point) {
+        const pointDiv = document.createElement('div');
+        pointDiv.className = 'point';
+        pointDiv.style.left = `${point.x}px`;
+        pointDiv.style.top = `${point.y}px`;
+        pointDiv.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent map click from adding a new point
+            this.deletePoint(point);
+        });
+        this.zoomContainer.appendChild(pointDiv);
+    }
+    
+    clearPoints() {
+        if (confirm('Are you sure you want to clear all points?')) {
+            this.points = [];
+            this.displayPoints();
+            localStorage.removeItem('mapPoints');
+        }
+    }
+    
+    
+    savePoints() {
+        localStorage.setItem('mapPoints', JSON.stringify(this.points));
+        alert('Points saved!');
+    }
+    
     
     updateHighlights(type) {
         this.clearHighlights();
@@ -80,21 +151,21 @@ class MVHSDirectory {
                 'Attendance Office': [{ top: 440, left: 165, width: 25, height: 23 }],
                 'Parking Lots': [{ top: 140, left: 90, width: 100, height: 80 }, { top: 485, left: 60, width: 175, height: 55 },],
                 // Add other categories here
-        }[category];
-        if (positions) {
-            const imageWidth = this.zoomContainer.offsetWidth;
-            const imageHeight = this.zoomContainer.offsetHeight;
-            positions.forEach(pos => {
-                const scaledPos = {
-                    top: (pos.top / 590.766) * imageHeight,
-                    left: (pos.left / 848) * imageWidth,
-                    width: (pos.width / 848) * imageWidth,
-                    height: (pos.height / 590.766) * imageHeight
-                };
-                this.createHighlightArea(scaledPos);
-            });
+            }[category];
+            if (positions) {
+                const imageWidth = this.zoomContainer.offsetWidth;
+                const imageHeight = this.zoomContainer.offsetHeight;
+                positions.forEach(pos => {
+                    const scaledPos = {
+                        top: (pos.top / 590.766) * imageHeight,
+                        left: (pos.left / 848) * imageWidth,
+                        width: (pos.width / 848) * imageWidth,
+                        height: (pos.height / 590.766) * imageHeight
+                    };
+                    this.createHighlightArea(scaledPos);
+                });
+            }
         }
-    }
         
         
         createHighlightArea(pos) {
@@ -112,4 +183,3 @@ class MVHSDirectory {
             this.highlightedAreas.innerHTML = "";
         }
     }
-    
