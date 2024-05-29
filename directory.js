@@ -150,6 +150,7 @@ class MVHSDirectory {
                 { top: 517, left: 508, width: 22, height: 8 },], 
                 'Attendance Office': [{ top: 440, left: 165, width: 25, height: 23 }],
                 'Parking Lots': [{ top: 140, left: 90, width: 100, height: 80 }, { top: 485, left: 60, width: 175, height: 55 },],
+                'Textbook Center': [{ top: 413, left: 342, width: 13, height: 30 }],
                 // Add other categories here
             }[category];
             if (positions) {
